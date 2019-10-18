@@ -14,11 +14,12 @@ public class BinaryTest {
 		
 		FileOutputStream fos = new FileOutputStream("data.dat");
         BufferedOutputStream out = new BufferedOutputStream(fos);
-        for (int i = 0; i < 2; i++) {
-            out.write(0);
-            out.write(1);
+       
+            out.write(256);
+            
 
-        }
+        out.close();
+        fos.close();
         
 	}
 }

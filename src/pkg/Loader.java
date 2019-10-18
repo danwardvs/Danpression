@@ -11,20 +11,20 @@ import javax.swing.JFrame;
 
 public class Loader extends Canvas{
 	
-	final static int width = 320;
-	final static int height = 240;
+	final static int width = 1920;
+	final static int height = 1200;
 	static byte[] fileContents;
 	static Pixel[] sample = new Pixel[7];
 	
 	public static void main(String[] args) throws IOException {
 		
-		sample[0] = new Pixel(18,11,6);
-		sample[1] = new Pixel		(229,184,131);
-		sample[2] = new Pixel		(72,36,5);
-		sample[3] = new Pixel		(167,162,156);
-		sample[4] = new Pixel		(123,102,80);
-		sample[5] = new Pixel		(177,188,195);
-		sample[6] = new Pixel		(49,54,35);
+		sample[0] = new Pixel(147,47,31);
+		sample[1] = new Pixel		(187,83,80);
+		sample[2] = new Pixel		(116,45,43);
+		sample[3] = new Pixel		(83,3,2);
+		sample[4] = new Pixel		(255,231,213);
+		sample[5] = new Pixel		(161,34,25);
+		sample[6] = new Pixel		(105,50,45);
 		
 		Path path = Paths.get("red.dat");
 		fileContents =  Files.readAllBytes(path);

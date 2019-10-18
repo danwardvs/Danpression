@@ -17,7 +17,7 @@ public class Saver {
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("tiger.bmp"));
+            img = ImageIO.read(new File("tree.bmp"));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
