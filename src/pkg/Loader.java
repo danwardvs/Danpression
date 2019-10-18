@@ -11,26 +11,30 @@ import javax.swing.JFrame;
 
 public class Loader extends Canvas{
 	
-	final static int width = 320;
-	final static int height = 240;
+	final static int width = 1920;
+	final static int height = 1200;
 	static byte[] fileContents;
 	static int[]converted_contents = new int[width*height];
 
 	static Pixel[] sample = new Pixel[7];
-	static Coordinate[] sample_sorted = new Coordinate[7];
+	static Coordinate[] sample_sorted_red = new Coordinate[7];
+	static Coordinate[] sample_sorted_green = new Coordinate[7];
+	static Coordinate[] sample_sorted_blue = new Coordinate[7];
+
 	static Random rand = new Random();
 	
 	public static void main(String[] args) throws IOException {
 		
 		
 		
-		sample[0] = new Pixel(18,11,6);
-		sample[1] = new Pixel		(229,184,131);
-		sample[2] = new Pixel		(72,36,5);
-		sample[3] = new Pixel		(167,162,156);
-		sample[4] = new Pixel		(123,102,80);
-		sample[5] = new Pixel		(177,188,195);
-		sample[6] = new Pixel		(49,54,35);
+		sample[0] = new Pixel(147,47,31)
+;
+		sample[1] = new Pixel		(187,83,80);
+		sample[2] = new Pixel		(116,45,43);
+		sample[3] = new Pixel		(83,3,2);
+		sample[4] = new Pixel		(255,231,213);
+		sample[5] = new Pixel		(161,34,25);
+		sample[6] = new Pixel		(105,50,45);
 		
 		Path path = Paths.get("red.dat");
 		fileContents =  Files.readAllBytes(path);
@@ -49,13 +53,15 @@ public class Loader extends Canvas{
 //			}
 //		}
 		
-		sample_sorted = PixelSort.Sort(sample,0);
-		
-		
-		for(Coordinate elem:sample_sorted) {
+		sample_sorted_red = PixelSort.Sort(sample,0);
+		sample_sorted_green= PixelSort.Sort(sample,1);
+
+		sample_sorted_blue = PixelSort.Sort(sample,2);
+
+		for(Coordinate elem:sample_sorted_green) {
 			System.out.println(elem);
 		}
-		
+
 		Loader m=new Loader();  
         JFrame f=new JFrame();  
         f.add(m);  
@@ -89,28 +95,90 @@ public class Loader extends Canvas{
     			
     			
     			for(int i=0; i<7; i++) {
-    				if(sample_sorted[i].y==new_index) {
+    				if(sample_sorted_red[i].y==new_index) {
     					//System.out.println(sample_sorted[i]);
     					if(i+1!=7) {
     						//System.out.println(sample_sorted[i+1]);
-    						upper_sample_index = sample_sorted[i+1].y;
+    						upper_sample_index = sample_sorted_red[i+1].y;
     					}
     				}
     				
     			}
     	
     			if(upper_sample_index!=7) {
-    		
-    				new_r = rand.nextInt(sample[upper_sample_index].r - sample[new_index].r) + sample[new_index].r;
+    				
+    				if(sample[upper_sample_index].r - sample[new_index].r>0)
+    					new_r = rand.nextInt(sample[upper_sample_index].r - sample[new_index].r) + sample[new_index].r;
+    				else
+    					new_r = sample[new_index].r;
 
     			}
     			if(upper_sample_index==7) {
-    				new_r = rand.nextInt(255 - sample[sample_sorted[6].y].r) + sample_sorted[6].x;
+    				
+    				if((255 - sample[sample_sorted_red[6].y].r)>0)
+    					new_r = rand.nextInt(255 - sample[sample_sorted_red[6].y].r) + sample_sorted_red[6].x;
+    				else 
+    					new_r = sample_sorted_red[6].x;
+    				
+
+    			}
+    			
+    			upper_sample_index = 7;
+    			
+    			for(int i=0; i<7; i++) {
+    				if(sample_sorted_green[i].y==new_index) {
+    					//System.out.println(sample_sorted[i]);
+    					if(i+1!=7) {
+    						//System.out.println(sample_sorted[i+1]);
+    						upper_sample_index = sample_sorted_green[i+1].y;
+    					}
+    				}
+    				
+    			}
+    	
+    			if(upper_sample_index!=7) {
+    				if(sample[upper_sample_index].g - sample[new_index].g>0)
+    					new_g = rand.nextInt(sample[upper_sample_index].g - sample[new_index].g) + sample[new_index].g;
+    				else
+    					new_g = sample[new_index].g;
+    			}
+    			if(upper_sample_index==7) {
+    				if(255 - sample[sample_sorted_green[6].y].g>0)
+    					new_g = rand.nextInt(255 - sample[sample_sorted_green[6].y].g) + sample_sorted_green[6].x;
+    				else {
+    					new_g = sample_sorted_green[6].x;
+    				}
 
     			}
     	
     			
-    			g.setColor(new Color(new_r,sample[new_index].g,sample[new_index].b));
+    			upper_sample_index = 7;
+    			
+    			for(int i=0; i<7; i++) {
+    				if(sample_sorted_blue[i].y==new_index) {
+    					if(i+1!=7) {
+    						upper_sample_index = sample_sorted_blue[i+1].y;
+    					}
+    				}
+    				
+    			}
+    	
+    			if(upper_sample_index!=7) {
+
+    				if((sample[upper_sample_index].b - sample[new_index].b)>0)
+    					new_b = rand.nextInt(sample[upper_sample_index].b - sample[new_index].b) + sample[new_index].b;
+    				else
+    					new_b = sample[new_index].b;
+
+    			}
+    			if(upper_sample_index==7) {
+    				if(255 - sample[sample_sorted_blue[6].y].b>0)
+    					new_b = rand.nextInt(255 - sample[sample_sorted_blue[6].y].b) + sample_sorted_blue[6].x;
+    				else
+    					new_b = sample_sorted_blue[6].x;
+    			}
+    			
+    			g.setColor(new Color(new_r,new_g,new_b));
         		g.drawLine(w, h, w, h);
         		
 
