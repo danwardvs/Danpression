@@ -87,19 +87,24 @@ public class Saver {
 
                 	}
                 }
+                red_data.write(rank);
                 
-                chunk[chunk_count] = rank;
                 
-                chunk_count++;
-                
-                if(chunk_count == 8) {
-                	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
-                	chunk_count=0;
-                	red_data.write(encoded_chunk);
-                	/*for(int k=0;k<8;k++) {
-                		chunk[k]=0;
-                	}*/
-                }
+                // Chunk code
+               
+//                chunk[chunk_count] = rank;
+//                
+//                chunk_count++;
+//                
+//                if(chunk_count == 8) {
+//                	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
+//                	chunk_count=0;
+//                	red_data.write(encoded_chunk);
+//                	/*for(int k=0;k<8;k++) {
+//                		chunk[k]=0;
+//                	}*/
+//                }
+//            	
                 
                
                 

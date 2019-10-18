@@ -31,19 +31,19 @@ public class Loader extends Canvas{
 		Path path = Paths.get("red.dat");
 		fileContents =  Files.readAllBytes(path);
 		
-		
-		for(int i=0; i<(width*height)/3; i+=3) {
-			byte[] chunk = new byte[3];
-			chunk[0] = fileContents[i];
-			chunk[1] = fileContents[i+1];
-			chunk[2] = fileContents[i+2];
-			int[] converted_chunk = Chunk.DecodeChunk(chunk);
-			
-			for(int j=0; j<8; j++) {
-				converted_contents[((i/3)*8) + j] = converted_chunk[j];
-						
-			}
-		}
+//		
+//		for(int i=0; i<(width*height)/3; i+=3) {
+//			byte[] chunk = new byte[3];
+//			chunk[0] = fileContents[i];
+//			chunk[1] = fileContents[i+1];
+//			chunk[2] = fileContents[i+2];
+//			int[] converted_chunk = Chunk.DecodeChunk(chunk);
+//			
+//			for(int j=0; j<8; j++) {
+//				converted_contents[((i/3)*8) + j] = converted_chunk[j];
+//						
+//			}
+//		}
 		
 		
 		for(byte elem:fileContents) {
@@ -66,10 +66,17 @@ public class Loader extends Canvas{
     			//System.out.printf("this>");
         		//System.out.println(fileContents[w*(h+1)]);
     			
-    			int new_index = converted_contents[w+(h*width)];
+    			// Chunk code
+    			//int new_index = converted_contents[w+(h*width)];
+    			
+    			// NonChunkCode
+    			int new_index = fileContents[w+(h*width)];
+
     			if(new_index==7) {
     				new_index=6;
     			}
+    			
+    			
     			g.setColor(new Color(sample[new_index].r,sample[new_index].g,sample[new_index].b));
         		g.drawLine(w, h, w, h);
         		
