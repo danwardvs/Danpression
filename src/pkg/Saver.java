@@ -17,7 +17,7 @@ public class Saver {
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("tree.bmp"));
+            img = ImageIO.read(new File("tiger.bmp"));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
@@ -63,11 +63,16 @@ public class Saver {
 		FileOutputStream red_data = new FileOutputStream("red.dat");
         BufferedOutputStream out = new BufferedOutputStream(red_data);
 		
+        int chunk_count = 0;
+        int[] chunk = new int[8];
+        
 		for (int h = 0; h<height; h++)
         {
             for (int w = 0; w<width; w++)
             {
                 
+            	
+            	
                 int rgb = img.getRGB(w, h);
                 int red = (rgb >> 16 ) & 0x000000FF;
                 int green = (rgb >> 8 ) & 0x000000FF;
@@ -82,7 +87,16 @@ public class Saver {
 
                 	}
                 }
-                red_data.write(rank);
+                chunk[chunk_count] = rank;
+                
+                chunk_count++;
+                
+                if(chunk_count == 8) {
+                	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
+                	chunk_count=0;
+                	red_data.write(encoded_chunk);
+                }
+                
                
                 
             }
