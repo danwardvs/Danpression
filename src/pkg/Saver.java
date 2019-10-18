@@ -87,6 +87,7 @@ public class Saver {
 
                 	}
                 }
+                
                 chunk[chunk_count] = rank;
                 
                 chunk_count++;
@@ -95,6 +96,9 @@ public class Saver {
                 	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
                 	chunk_count=0;
                 	red_data.write(encoded_chunk);
+                	/*for(int k=0;k<8;k++) {
+                		chunk[k]=0;
+                	}*/
                 }
                 
                

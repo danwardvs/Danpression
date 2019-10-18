@@ -32,7 +32,7 @@ public class Loader extends Canvas{
 		fileContents =  Files.readAllBytes(path);
 		
 		
-		for(int i=0; i<width*height/3; i+=3) {
+		for(int i=0; i<(width*height)/3; i+=3) {
 			byte[] chunk = new byte[3];
 			chunk[0] = fileContents[i];
 			chunk[1] = fileContents[i+1];

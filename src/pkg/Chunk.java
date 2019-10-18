@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 public class Chunk {
 	public static void main(String[] args) {
-		int[] test_chunk = {7,1,7,3,4,5,6,7};
+		int[] test_chunk = {0,0,7,0,7,0,7,0};
 		test_chunk = DecodeChunk(EncodeChunk(test_chunk));
 		
 		for(int elem:test_chunk)
