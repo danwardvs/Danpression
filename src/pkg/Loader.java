@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.Random;
 import java.awt.*;  
 import javax.swing.JFrame;  
   
@@ -17,8 +17,12 @@ public class Loader extends Canvas{
 	static int[]converted_contents = new int[width*height];
 
 	static Pixel[] sample = new Pixel[7];
+	static Coordinate[] sample_sorted = new Coordinate[7];
+	static Random rand = new Random();
 	
 	public static void main(String[] args) throws IOException {
+		
+		
 		
 		sample[0] = new Pixel(18,11,6);
 		sample[1] = new Pixel		(229,184,131);
@@ -45,9 +49,11 @@ public class Loader extends Canvas{
 //			}
 //		}
 		
+		sample_sorted = PixelSort.Sort(sample,0);
 		
-		for(byte elem:fileContents) {
-			//System.out.println(elem);
+		
+		for(Coordinate elem:sample_sorted) {
+			System.out.println(elem);
 		}
 		
 		Loader m=new Loader();  
@@ -71,13 +77,40 @@ public class Loader extends Canvas{
     			
     			// NonChunkCode
     			int new_index = fileContents[w+(h*width)];
-
-    			if(new_index==7) {
+    			if(new_index==7)
     				new_index=6;
+    			
+    			int new_r = sample[new_index].r;
+    			int new_g = 0;
+    			int new_b = 0;
+    			
+    			int upper_sample_index = 7;
+    			
+    			
+    			
+    			for(int i=0; i<7; i++) {
+    				if(sample_sorted[i].y==new_index) {
+    					//System.out.println(sample_sorted[i]);
+    					if(i+1!=7) {
+    						//System.out.println(sample_sorted[i+1]);
+    						upper_sample_index = sample_sorted[i+1].y;
+    					}
+    				}
+    				
     			}
+    	
+    			if(upper_sample_index!=7) {
+    		
+    				new_r = rand.nextInt(sample[upper_sample_index].r - sample[new_index].r) + sample[new_index].r;
+
+    			}
+    			if(upper_sample_index==7) {
+    				new_r = rand.nextInt(255 - sample[sample_sorted[6].y].r) + sample_sorted[6].x;
+
+    			}
+    	
     			
-    			
-    			g.setColor(new Color(sample[new_index].r,sample[new_index].g,sample[new_index].b));
+    			g.setColor(new Color(new_r,sample[new_index].g,sample[new_index].b));
         		g.drawLine(w, h, w, h);
         		
 
