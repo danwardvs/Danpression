@@ -17,7 +17,7 @@ public class Saver {
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("tree.bmp"));
+            img = ImageIO.read(new File("tiger.bmp"));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
@@ -78,15 +78,26 @@ public class Saver {
                 int green = (rgb >> 8 ) & 0x000000FF;
                 int blue = (rgb) & 0x000000FF;
                 
-                int rank = SAMPLE_SIZE;
+                int rank = 0;
                 
-                for(int i=0; i<SAMPLE_SIZE; i++) {
-                	if(red<red_sorted[i].x) {
-                		rank=red_sorted[i].y;
-                		break;
-
-                	}
+                int fitness[] = new int[SAMPLE_SIZE];
+                
+                for(int i = 0; i<SAMPLE_SIZE; i++) {
+                	fitness[i] = Math.abs(red - samples[i].r) + Math.abs(green - samples[i].g) + Math.abs(blue - samples[i].b);
                 }
+                for(int i = 0; i<SAMPLE_SIZE; i++) {
+                	if(fitness[i]<fitness[rank])
+                		rank = i;
+                }
+                
+                // Ditching this sample method
+//                for(int i=0; i<SAMPLE_SIZE; i++) {
+//                	if(red<red_sorted[i].x) {
+//                		rank=red_sorted[i].y;
+//                		break;
+//
+//                	}
+//                }
                 red_data.write(rank);
                 
                 
