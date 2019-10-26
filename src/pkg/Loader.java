@@ -25,8 +25,7 @@ public class Loader extends Canvas{
 	
 	public static void main(String[] args) throws IOException {
 		
-		Header header = new Header();
-		header.read("header.dan");
+		
 		
 		sample[0] = new Pixel(171,118,114);
 		sample[1] = new Pixel(240,210,208);
@@ -39,6 +38,7 @@ public class Loader extends Canvas{
 		Path path = Paths.get("output.dan");
 		fileContents =  Files.readAllBytes(path);
 		
+		System.out.println(fileContents.length);
 		
 		for(int i=0; i<(width*height)/3; i+=3) {
 			byte[] chunk = new byte[3];
@@ -75,6 +75,7 @@ public class Loader extends Canvas{
     	
     	for(int h=0; h<height; h++) {
     		for(int w=0; w<width; w++) {
+    			int header_size = 29;
     			//System.out.printf("this>");
         		//System.out.println(fileContents[w*(h+1)]);
     			
@@ -82,7 +83,7 @@ public class Loader extends Canvas{
     			//int new_index = converted_contents[w+(h*width)];
     			
     			// NonChunkCode
-    			int new_index = fileContents[w+(h*width)];
+    			int new_index = fileContents[header_size+w+(h*width)];
     			
     			if(new_index==7)
     				new_index=6;

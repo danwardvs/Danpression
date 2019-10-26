@@ -42,6 +42,28 @@ public class Header {
 			            (byte)value};
 			
 		}
+		public static byte[] convertHeader(int width, int height, Pixel[] samples) {
+			byte[] header_data = new byte[29];
+			byte[] width_data = intToByteArray(width);
+			byte[] height_data = intToByteArray(height);
+
+			
+			
+			for(int i=0; i<4; i++) {
+				header_data[i] = width_data[i];
+				header_data[i+4] = height_data[i];
+
+			}
+
+			for(int i=0; i<7; i++) {
+				
+				header_data[(i*3)+8] = (byte)samples[i].r;
+				header_data[(i*3)+8] = (byte)samples[i].g;
+				header_data[(i*3)+8] = (byte)samples[i].b;
+			}
+			
+			return header_data;
+		}
 		
 		public void write(int width, int height, Pixel[] samples) throws IOException {
 			BufferedOutputStream out = new BufferedOutputStream(data);
@@ -54,6 +76,9 @@ public class Header {
 				out.write((byte)elem.b);
 				
 			}
+			
+			
+			
 			out.close();
 		
 		}

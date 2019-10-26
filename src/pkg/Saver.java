@@ -65,8 +65,14 @@ public class Saver {
 		FileOutputStream red_data = new FileOutputStream("output.dan");
         BufferedOutputStream out = new BufferedOutputStream(red_data);
 		
-        int chunk_count = 0;
+        out.write(Header.convertHeader(width,height,samples));
+        
+        int chunk_count = 10000;
         int[] chunk = new int[8];
+        
+//        for(int i=0; i<123456; i++)
+//        	out.write((byte)5);
+       
         
 		for (int h = 0; h<height; h++)
         {
@@ -100,7 +106,7 @@ public class Saver {
 //
 //                	}
 //                }
-                red_data.write(rank);
+                out.write(rank);
                 
                 
                 // Chunk code
@@ -125,8 +131,8 @@ public class Saver {
         
         
         }
-		Header header = new Header("header.dan");
-		header.write(width,height,samples);
+		
+		
 		
 		out.flush();
         red_data.close();
