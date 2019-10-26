@@ -17,7 +17,7 @@ public class Saver {
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("tiger.bmp"));
+            img = ImageIO.read(new File("me.bmp"));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
@@ -44,6 +44,11 @@ public class Saver {
 		Pixel[] samples = new Pixel[SAMPLE_SIZE];
 		Coordinate[] ordered_red = new Coordinate[SAMPLE_SIZE];
 		
+		System.out.printf(String.format("width = %d;\n",width));
+		System.out.printf(String.format("height = %d;\n",height));
+
+		
+		
 		for(int i=0; i<SAMPLE_SIZE; i++) {
 			
 			 int rgb = img.getRGB(sample_locs[i].x, sample_locs[i].y);
@@ -52,15 +57,12 @@ public class Saver {
              int blue = (rgb) & 0x000000FF;
 			
 			samples[i] = new Pixel(red,green,blue);
-			System.out.println(samples[i].toString());
+			System.out.printf("sample[%d] = new Pixel" + samples[i].toString() +";\n",i);
 		}
 		
-		Coordinate[] red_sorted = PixelSort.Sort(samples,0);
 
 		
-		
-		
-		FileOutputStream red_data = new FileOutputStream("red.dat");
+		FileOutputStream red_data = new FileOutputStream("output.dan");
         BufferedOutputStream out = new BufferedOutputStream(red_data);
 		
         int chunk_count = 0;
@@ -123,6 +125,9 @@ public class Saver {
         
         
         }
+		Header header = new Header("header.dan");
+		header.write(width,height,samples);
+		
 		out.flush();
         red_data.close();
         
