@@ -26,41 +26,45 @@ public class Loader extends Canvas{
 	public static void main(String[] args) throws IOException {
 		
 		
-		
-		sample[0] = new Pixel(171,118,114);
-		sample[1] = new Pixel(240,210,208);
-		sample[2] = new Pixel(103,73,75);
-		sample[3] = new Pixel(234,177,183);
-		sample[4] = new Pixel(217,194,188);
-		sample[5] = new Pixel(78,46,47);
-		sample[6] = new Pixel(147,89,85);
+//		
+//		sample[0] = new Pixel(171,118,114);
+//		sample[1] = new Pixel(240,210,208);
+//		sample[2] = new Pixel(103,73,75);
+//		sample[3] = new Pixel(234,177,183);
+//		sample[4] = new Pixel(217,194,188);
+//		sample[5] = new Pixel(78,46,47);
+//		sample[6] = new Pixel(147,89,85);
 		
 		Path path = Paths.get("output.dan");
 		fileContents =  Files.readAllBytes(path);
 		
-		System.out.println(fileContents.length);
-		
-		for(int i=0; i<(width*height)/3; i+=3) {
-			byte[] chunk = new byte[3];
-			chunk[0] = fileContents[i];
-			chunk[1] = fileContents[i+1];
-			chunk[2] = fileContents[i+2];
-			int[] converted_chunk = Chunk.DecodeChunk(chunk);
-			
-			for(int j=0; j<8; j++) {
-				converted_contents[((i/3)*8) + j] = converted_chunk[j];
-						
-			}
+		for(int i=0; i<7; i++) {
+			sample[i] = new Pixel(fileContents[8+(i*3)] & 0xFF,fileContents[8+(i*3)+1] & 0xFF,fileContents[8+(i*3)+2] & 0xFF);
+			System.out.println(sample[i]);
 		}
-		
-		sample_sorted_red = PixelSort.Sort(sample,0);
-		sample_sorted_green= PixelSort.Sort(sample,1);
 
-		sample_sorted_blue = PixelSort.Sort(sample,2);
-
-		for(Coordinate elem:sample_sorted_green) {
-			System.out.println(elem);
-		}
+//	
+//		for(int i=0; i<(width*height)/3; i+=3) {
+//			byte[] chunk = new byte[3];
+//			chunk[0] = fileContents[i];
+//			chunk[1] = fileContents[i+1];
+//			chunk[2] = fileContents[i+2];
+//			int[] converted_chunk = Chunk.DecodeChunk(chunk);
+//			
+//			for(int j=0; j<8; j++) {
+//				converted_contents[((i/3)*8) + j] = converted_chunk[j];
+//						
+//			}
+//		}
+//		
+//		sample_sorted_red = PixelSort.Sort(sample,0);
+//		sample_sorted_green= PixelSort.Sort(sample,1);
+//
+//		sample_sorted_blue = PixelSort.Sort(sample,2);
+//
+//		for(Coordinate elem:sample_sorted_green) {
+//			System.out.println(elem);
+//		}
 
 		Loader m=new Loader();  
         JFrame f=new JFrame();  

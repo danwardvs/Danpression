@@ -58,8 +58,8 @@ public class Header {
 			for(int i=0; i<7; i++) {
 				
 				header_data[(i*3)+8] = (byte)samples[i].r;
-				header_data[(i*3)+8] = (byte)samples[i].g;
-				header_data[(i*3)+8] = (byte)samples[i].b;
+				header_data[(i*3)+8+1] = (byte)samples[i].g;
+				header_data[(i*3)+8+2] = (byte)samples[i].b;
 			}
 			
 			return header_data;
