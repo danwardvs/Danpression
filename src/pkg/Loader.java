@@ -1,6 +1,7 @@
 package pkg;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,8 +12,8 @@ import javax.swing.JFrame;
 
 public class Loader extends Canvas{
 	
-	static int width = 725;
-	static int height = 1007;
+	static int width;
+	static int height;
 	static byte[] fileContents;
 	static int[]converted_contents = new int[width*height];
 
@@ -38,10 +39,27 @@ public class Loader extends Canvas{
 		Path path = Paths.get("output.dan");
 		fileContents =  Files.readAllBytes(path);
 		
+		byte[] split_bytes = new byte[4];
+		
+		for(int i=0; i<4; i++) {
+			split_bytes[i] = fileContents[i];
+		}
+		width = ByteBuffer.wrap(split_bytes).getInt();
+		
+		for(int i=4; i<8; i++) {
+			split_bytes[i-4] = fileContents[i];
+		}
+		height = ByteBuffer.wrap(split_bytes).getInt();
+		
+		
+		System.out.println(width);
+		System.out.println(height);
+		
 		for(int i=0; i<7; i++) {
 			sample[i] = new Pixel(fileContents[8+(i*3)] & 0xFF,fileContents[8+(i*3)+1] & 0xFF,fileContents[8+(i*3)+2] & 0xFF);
 			System.out.println(sample[i]);
 		}
+		
 
 //	
 //		for(int i=0; i<(width*height)/3; i+=3) {
