@@ -17,7 +17,7 @@ public class Saver {
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("camera.png"));
+            img = ImageIO.read(new File("city.bmp"));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
