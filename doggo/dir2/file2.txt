@@ -1,0 +1,1 @@
+This file located in a directory 'dir'

@@ -19,7 +19,7 @@ public class ArchiveLoader{
         try {
             SevenZip.initSevenZipFromPlatformJAR();
             System.out.println("7-Zip-JBinding library was initialized");
-            RandomAccessFile randomAccessFile = new RandomAccessFile("output.dan", "r");
+            RandomAccessFile randomAccessFile = new RandomAccessFile("0.dan", "r");
 
             IInArchive inArchive = SevenZip.openInArchive(null, // Choose format
                                                                 // automatically
