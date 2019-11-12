@@ -17,7 +17,7 @@ public class Saver {
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("city.bmp"));
+            img = ImageIO.read(new File("face.bmp"));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
@@ -67,7 +67,9 @@ public class Saver {
 		
         out.write(Header.convertHeader(width,height,samples));
         
-        int chunk_count = 10000;
+        boolean use_chunks = false;
+        
+        int chunk_count = 0;
         int[] chunk = new int[8];
         
 //        for(int i=0; i<123456; i++)
@@ -98,32 +100,25 @@ public class Saver {
                 		rank = i;
                 }
                 
-                // Ditching this sample method
-//                for(int i=0; i<SAMPLE_SIZE; i++) {
-//                	if(red<red_sorted[i].x) {
-//                		rank=red_sorted[i].y;
-//                		break;
-//
-//                	}
-//                }
-                out.write(rank);
+                if(!use_chunks)
+                	out.write(rank);
                 
-                
+                else {
                 // Chunk code
                
-//                chunk[chunk_count] = rank;
-//                
-//                chunk_count++;
-//                
-//                if(chunk_count == 8) {
-//                	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
-//                	chunk_count=0;
-//                	red_data.write(encoded_chunk);
-//                	/*for(int k=0;k<8;k++) {
-//                		chunk[k]=0;
-//                	}*/
-//                }
-//            	
+              chunk[chunk_count] = rank;
+               
+              chunk_count++;
+               
+               if(chunk_count == 8) {
+              	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
+               	chunk_count=0;             
+               	out.write(encoded_chunk); 
+               	/*for(int k=0;k<8;k++) {
+             		chunk[k]=0;
+                	}*/
+                }
+                }
                 
                
                 

@@ -15,7 +15,7 @@ public class Loader extends Canvas{
 	static int width;
 	static int height;
 	static byte[] fileContents;
-	static int[]converted_contents = new int[width*height];
+	static int[]converted_contents;
 
 	static Pixel[] sample = new Pixel[7];
 	static Coordinate[] sample_sorted_red = new Coordinate[7];
@@ -26,16 +26,7 @@ public class Loader extends Canvas{
 	
 	public static void main(String[] args) throws IOException {
 		
-		
-//		
-//		sample[0] = new Pixel(171,118,114);
-//		sample[1] = new Pixel(240,210,208);
-//		sample[2] = new Pixel(103,73,75);
-//		sample[3] = new Pixel(234,177,183);
-//		sample[4] = new Pixel(217,194,188);
-//		sample[5] = new Pixel(78,46,47);
-//		sample[6] = new Pixel(147,89,85);
-		
+
 		Path path = Paths.get("output.dan");
 		fileContents =  Files.readAllBytes(path);
 		
@@ -55,19 +46,23 @@ public class Loader extends Canvas{
 		System.out.println(width);
 		System.out.println(height);
 		
+		
+		
 		for(int i=0; i<7; i++) {
 			sample[i] = new Pixel(fileContents[8+(i*3)] & 0xFF,fileContents[8+(i*3)+1] & 0xFF,fileContents[8+(i*3)+2] & 0xFF);
 			System.out.println(sample[i]);
 		}
 		
-
+//		converted_contents = new int[width*height];
 //	
 //		for(int i=0; i<(width*height)/3; i+=3) {
 //			byte[] chunk = new byte[3];
-//			chunk[0] = fileContents[i];
-//			chunk[1] = fileContents[i+1];
-//			chunk[2] = fileContents[i+2];
+//			chunk[0] = fileContents[i+29];
+//			chunk[1] = fileContents[i+1+29];
+//			chunk[2] = fileContents[i+2+29];
 //			int[] converted_chunk = Chunk.DecodeChunk(chunk);
+//			
+//			System.out.println(i);
 //			
 //			for(int j=0; j<8; j++) {
 //				converted_contents[((i/3)*8) + j] = converted_chunk[j];
@@ -75,14 +70,6 @@ public class Loader extends Canvas{
 //			}
 //		}
 //		
-//		sample_sorted_red = PixelSort.Sort(sample,0);
-//		sample_sorted_green= PixelSort.Sort(sample,1);
-//
-//		sample_sorted_blue = PixelSort.Sort(sample,2);
-//
-//		for(Coordinate elem:sample_sorted_green) {
-//			System.out.println(elem);
-//		}
 
 		Loader m=new Loader();  
         JFrame f=new JFrame();  
@@ -116,92 +103,7 @@ public class Loader extends Canvas{
     			
     			int upper_sample_index = 7;
     			
-    			
-//    			
-//    			for(int i=0; i<7; i++) {
-//    				if(sample_sorted_red[i].y==new_index) {
-//    					//System.out.println(sample_sorted[i]);
-//    					if(i+1!=7) {
-//    						//System.out.println(sample_sorted[i+1]);
-//    						upper_sample_index = sample_sorted_red[i+1].y;
-//    					}
-//    				}
-//    				
-//    			}
-//    	
-//    			if(upper_sample_index!=7) {
-//    				
-//    				if(sample[upper_sample_index].r - sample[new_index].r>0)
-//    					new_r = rand.nextInt(sample[upper_sample_index].r - sample[new_index].r) + sample[new_index].r;
-//    				else
-//    					new_r = sample[new_index].r;
-//
-//    			}
-//    			if(upper_sample_index==7) {
-//    				
-//    				if((255 - sample[sample_sorted_red[6].y].r)>0)
-//    					new_r = rand.nextInt(255 - sample[sample_sorted_red[6].y].r) + sample_sorted_red[6].x;
-//    				else 
-//    					new_r = sample_sorted_red[6].x;
-//    				
-//
-//    			}
-//    			
-//    			upper_sample_index = 7;
-//    			
-//    			for(int i=0; i<7; i++) {
-//    				if(sample_sorted_green[i].y==new_index) {
-//    					//System.out.println(sample_sorted[i]);
-//    					if(i+1!=7) {
-//    						//System.out.println(sample_sorted[i+1]);
-//    						upper_sample_index = sample_sorted_green[i+1].y;
-//    					}
-//    				}
-//    				
-//    			}
-//    	
-//    			if(upper_sample_index!=7) {
-//    				if(sample[upper_sample_index].g - sample[new_index].g>0)
-//    					new_g = rand.nextInt(sample[upper_sample_index].g - sample[new_index].g) + sample[new_index].g;
-//    				else
-//    					new_g = sample[new_index].g;
-//    			}
-//    			if(upper_sample_index==7) {
-//    				if(255 - sample[sample_sorted_green[6].y].g>0)
-//    					new_g = rand.nextInt(255 - sample[sample_sorted_green[6].y].g) + sample_sorted_green[6].x;
-//    				else {
-//    					new_g = sample_sorted_green[6].x;
-//    				}
-//
-//    			}
-//    	
-//    			
-//    			upper_sample_index = 7;
-//    			
-//    			for(int i=0; i<7; i++) {
-//    				if(sample_sorted_blue[i].y==new_index) {
-//    					if(i+1!=7) {
-//    						upper_sample_index = sample_sorted_blue[i+1].y;
-//    					}
-//    				}
-//    				
-//    			}
-//    	
-//    			if(upper_sample_index!=7) {
-//
-//    				if((sample[upper_sample_index].b - sample[new_index].b)>0)
-//    					new_b = rand.nextInt(sample[upper_sample_index].b - sample[new_index].b) + sample[new_index].b;
-//    				else
-//    					new_b = sample[new_index].b;
-//
-//    			}
-//    			if(upper_sample_index==7) {
-//    				if(255 - sample[sample_sorted_blue[6].y].b>0)
-//    					new_b = rand.nextInt(255 - sample[sample_sorted_blue[6].y].b) + sample_sorted_blue[6].x;
-//    				else
-//    					new_b = sample_sorted_blue[6].x;
-//    			}
-//    			
+    		   			
     			g.setColor(new Color(new_r,new_g,new_b));
         		g.drawLine(w, h, w, h);
        		
