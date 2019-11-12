@@ -14,9 +14,9 @@ public class Loader extends Canvas{
 	
 	static int width;
 	static int height;
-	static byte[] fileContents;
 	static int[]converted_contents;
-
+	static byte[] fileContents;
+	
 	static Pixel[] sample = new Pixel[7];
 	static Coordinate[] sample_sorted_red = new Coordinate[7];
 	static Coordinate[] sample_sorted_green = new Coordinate[7];
@@ -26,19 +26,29 @@ public class Loader extends Canvas{
 	
 	public static void main(String[] args) throws IOException {
 		
-
+		
 		Path path = Paths.get("output.dan");
 		fileContents =  Files.readAllBytes(path);
+		processData(fileContents);
+		
+	}
+	
+	public static void processData(byte[] data) {
+		
+		fileContents = data;
+		
 		
 		byte[] split_bytes = new byte[4];
 		
 		for(int i=0; i<4; i++) {
-			split_bytes[i] = fileContents[i];
+			split_bytes[i] = data[i];
 		}
+		
+		
 		width = ByteBuffer.wrap(split_bytes).getInt();
 		
 		for(int i=4; i<8; i++) {
-			split_bytes[i-4] = fileContents[i];
+			split_bytes[i-4] = data[i];
 		}
 		height = ByteBuffer.wrap(split_bytes).getInt();
 		
@@ -49,27 +59,9 @@ public class Loader extends Canvas{
 		
 		
 		for(int i=0; i<7; i++) {
-			sample[i] = new Pixel(fileContents[8+(i*3)] & 0xFF,fileContents[8+(i*3)+1] & 0xFF,fileContents[8+(i*3)+2] & 0xFF);
+			sample[i] = new Pixel(data[8+(i*3)] & 0xFF,data[8+(i*3)+1] & 0xFF,data[8+(i*3)+2] & 0xFF);
 			System.out.println(sample[i]);
 		}
-		
-//		converted_contents = new int[width*height];
-//	
-//		for(int i=0; i<(width*height)/3; i+=3) {
-//			byte[] chunk = new byte[3];
-//			chunk[0] = fileContents[i+29];
-//			chunk[1] = fileContents[i+1+29];
-//			chunk[2] = fileContents[i+2+29];
-//			int[] converted_chunk = Chunk.DecodeChunk(chunk);
-//			
-//			System.out.println(i);
-//			
-//			for(int j=0; j<8; j++) {
-//				converted_contents[((i/3)*8) + j] = converted_chunk[j];
-//						
-//			}
-//		}
-//		
 
 		Loader m=new Loader();  
         JFrame f=new JFrame();  
@@ -77,6 +69,7 @@ public class Loader extends Canvas{
         f.setSize(width,height);  
         //f.setLayout(null);  
         f.setVisible(true);  
+		
 	}
 	
     public void paint(Graphics g) {

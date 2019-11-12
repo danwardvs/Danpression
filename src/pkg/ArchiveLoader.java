@@ -14,12 +14,12 @@ import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 
-public class SevenZipTest{
+public class ArchiveLoader{
     public static void main(String[] args) throws SevenZipException, FileNotFoundException {
         try {
             SevenZip.initSevenZipFromPlatformJAR();
             System.out.println("7-Zip-JBinding library was initialized");
-            RandomAccessFile randomAccessFile = new RandomAccessFile("buttz.7z", "r");
+            RandomAccessFile randomAccessFile = new RandomAccessFile("output.dan", "r");
 
             IInArchive inArchive = SevenZip.openInArchive(null, // Choose format
                                                                 // automatically
@@ -29,9 +29,7 @@ public class SevenZipTest{
             // Getting simple interface of the archive inArchive
             ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
 
-            System.out.println("   Hash   |    Size    | Filename");
-            System.out.println("----------+------------+---------");
-
+            System.out.println("Opening archive to view");
             for (ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
                 final int[] hash = new int[] { 0 };
                 if (!item.isFolder()) {
@@ -42,8 +40,10 @@ public class SevenZipTest{
                         public int write(byte[] data) throws SevenZipException {
                             hash[0] ^= Arrays.hashCode(data); // Consume data
                             for (byte b : data) {
-                                System.out.println(b);
+                                //System.out.println(b);
                             }
+                            Loader.processData(data);
+                            
                             sizeArray[0] += data.length;
                             return data.length; // Return amount of consumed
                                                 // data
