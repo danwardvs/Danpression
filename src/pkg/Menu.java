@@ -120,7 +120,7 @@ public class Menu{
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			destPath = fileChooser.getSelectedFile().getAbsolutePath();
-			destLocation.setText(destPath);
+			destLocation.setText(destPath + ".dan");
 		}
 	}
 	public void encodeFile() {
@@ -139,7 +139,7 @@ public class Menu{
 		
 		
 		fileChooser.setSelectedFile(null);
-		fileChooser.setFileFilter(null);
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Danpression image","dan"));
 		
 		int returnValue = fileChooser.showOpenDialog(null);
 

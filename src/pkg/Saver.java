@@ -114,39 +114,10 @@ public class Saver {
                 		rank = i;
                 }
                 
-                if(!use_chunks)
-                	out.write(rank);
                 
-                else {
-                // Chunk code
-               
-              chunk[chunk_count] = rank;
-               
-              chunk_count++;
-               
-               if(chunk_count == 8) {
-              	byte[] encoded_chunk =  Chunk.EncodeChunk(chunk);
-               	chunk_count=0;             
-               	out.write(encoded_chunk); 
-               	/*for(int k=0;k<8;k++) {
-             		chunk[k]=0;
-                	}*/
-                }
-                }
-                
-               
-                
+                out.write(rank);
             }
-        
-        
         }
-		
-		
-		
 		return out.toByteArray();
-        
-                
-       
-        
 	}
 }
