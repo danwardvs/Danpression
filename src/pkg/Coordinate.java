@@ -14,12 +14,8 @@ public class Coordinate implements Comparable<Coordinate> {
 	}
 	
 	public int compareTo(Coordinate compareCoordinate) {
-		
-		
 		//ascending order
 		return this.x - compareCoordinate.x;
-		
-
 		
 	}	
 }

@@ -12,6 +12,38 @@ public class Saver {
 		CompressArchive.compress(destPath,Saver.processData(sourcePath));
 
 	}
+	public static byte[] intToByteArray(int value) {
+		 return new byte[] {
+		            (byte)(value >>> 24),
+		            (byte)(value >>> 16),
+		            (byte)(value >>> 8),
+		            (byte)value};
+		
+	}
+	
+	
+	public static byte[] convertHeader(int width, int height, Pixel[] samples) {
+		byte[] header_data = new byte[29];
+		byte[] width_data = intToByteArray(width);
+		byte[] height_data = intToByteArray(height);
+
+		
+		
+		for(int i=0; i<4; i++) {
+			header_data[i] = width_data[i];
+			header_data[i+4] = height_data[i];
+
+		}
+
+		for(int i=0; i<7; i++) {
+			
+			header_data[(i*3)+8] = (byte)samples[i].r;
+			header_data[(i*3)+8+1] = (byte)samples[i].g;
+			header_data[(i*3)+8+2] = (byte)samples[i].b;
+		}
+		
+		return header_data;
+	}
 	
 	public static byte[] processData(String sourcePath) throws IOException {
 		
@@ -54,7 +86,7 @@ public class Saver {
 	
         ByteArrayOutputStream out = new ByteArrayOutputStream( );
 		
-        out.write(Header.convertHeader(width,height,samples));
+        out.write(convertHeader(width,height,samples));
         
 		for (int h = 0; h<height; h++)
         {
