@@ -2,10 +2,6 @@ package pkg;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Random;
 import java.awt.*;  
 import javax.swing.JFrame;  
   
@@ -21,13 +17,6 @@ public class Loader extends Canvas{
 	static Coordinate[] sample_sorted_red = new Coordinate[7];
 	static Coordinate[] sample_sorted_green = new Coordinate[7];
 	static Coordinate[] sample_sorted_blue = new Coordinate[7];
-	
-	public static void main(String[] args) throws IOException {
-		
-		
-		LoadArchive("tiger.7z");
-		
-	}
 	
 	public static void processData(byte[] data) {
 		
@@ -47,15 +36,8 @@ public class Loader extends Canvas{
 		}
 		height = ByteBuffer.wrap(split_bytes).getInt();
 		
-		
-		System.out.println(width);
-		System.out.println(height);
-		
-		
-		
 		for(int i=0; i<7; i++) {
 			sample[i] = new Pixel(data[8+(i*3)] & 0xFF,data[8+(i*3)+1] & 0xFF,data[8+(i*3)+2] & 0xFF);
-			System.out.println(sample[i]);
 		}
 
 		Loader m=new Loader();  
@@ -68,37 +50,16 @@ public class Loader extends Canvas{
 	
 	public static void Load(String destPath) throws IOException {
 		
-		
-		// Uncompressed data loading
-		//Path path = Paths.get(destPath);
-		//processData(Files.readAllBytes(path));
-		
 		// Compressed data loading
-		processData(ExtractArchive.Extract(destPath));
-		
-	}
-	
-	public static void LoadArchive(String destPath) throws IOException {
-		
-		
-
 		processData(ExtractArchive.Extract(destPath));
 		
 	}
 
     public void paint(Graphics g) {
     	
-    	
     	for(int h=0; h<height; h++) {
     		for(int w=0; w<width; w++) {
     			int header_size = 29;
-    			//System.out.printf("this>");
-        		//System.out.println(fileContents[w*(h+1)]);
-    			
-    			// Chunk code
-    			//int new_index = converted_contents[w+(h*width)];
-    			
-    			// NonChunkCode
     			int new_index = data[header_size+w+(h*width)];
     			
     			if(new_index==7)
@@ -107,8 +68,6 @@ public class Loader extends Canvas{
     			int new_r = sample[new_index].r;
     			int new_g = sample[new_index].g;
     			int new_b = sample[new_index].b;
-    			
-    			int upper_sample_index = 7;
     			
     		   			
     			g.setColor(new Color(new_r,new_g,new_b));

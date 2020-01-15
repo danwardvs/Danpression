@@ -40,8 +40,6 @@ public class Saver {
 		
 	
 		Pixel[] samples = new Pixel[SAMPLE_SIZE];		
-		System.out.printf(String.format("width = %d;\n",width));
-		System.out.printf(String.format("height = %d;\n",height));
 		
 		
 		for(int i=0; i<SAMPLE_SIZE; i++) {
@@ -52,7 +50,6 @@ public class Saver {
              int blue = (rgb) & 0x000000FF;
 			
 			samples[i] = new Pixel(red,green,blue);
-			System.out.printf("sample[%d] = new Pixel" + samples[i].toString() +";\n",i);
 		}
 	
         ByteArrayOutputStream out = new ByteArrayOutputStream( );
