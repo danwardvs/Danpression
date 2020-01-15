@@ -61,11 +61,7 @@ public class CompressArchive {
 
     private static Item[] items = new Item[1];
 
-    public static void main(String[] args) {
-        CompressArchive.compress("test6","message he;re pls".getBytes());
-    }
-
-
+    
     public static void compress(String filename, byte[] data) {
         items[0] = new Item(filename+".dnu",data);
 
@@ -89,6 +85,7 @@ public class CompressArchive {
                     new MyCreateCallback());
 
             success = true;
+            
         } catch (SevenZipException e) {
             System.err.println("7z-Error occurs:");
             // Get more information using extended method

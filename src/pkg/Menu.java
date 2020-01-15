@@ -85,9 +85,6 @@ public class Menu{
 		fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		        
 		
-		        
-		
-		
 	}
 	
 	public void loadSource() {
