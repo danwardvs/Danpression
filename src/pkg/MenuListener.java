@@ -40,6 +40,9 @@ public class MenuListener implements ActionListener{
 		if(componentID.equals("encodeButton")) {
 			menuReference.encodeFile();
 		}
+		if(componentID.equals("viewButton")) {
+			menuReference.viewImage();
+		}
 	
 	
 	

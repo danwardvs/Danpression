@@ -22,6 +22,7 @@ public class Menu{
 	JButton sourceButton;
 	JButton destButton;
 	JButton encodeButton;
+	JButton viewButton;
 	JFileChooser fileChooser;
 	JLabel sourceLocation;
 	JLabel destLocation;
@@ -43,12 +44,26 @@ public class Menu{
 		// TODO Auto-generated method stub
 		
 				
-		JFrame frame = new JFrame("My First GUI");
+		JFrame frame = new JFrame("Danpression");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,500);
+        frame.setSize(700,400);
 		frame.setVisible(true);
-		JPanel contentPanel = new JPanel(new GridLayout(5,1));
-		frame.add(contentPanel);
+		JPanel mainPanel = new JPanel(new GridLayout(1,2));
+		
+		frame.add(mainPanel);
+		
+		JPanel decodePanel = new JPanel(new GridLayout(5,1));
+		mainPanel.add(decodePanel);
+		
+		viewButton = new JButton("View .dan image");
+		viewButton.addActionListener(new MenuListener("viewButton"));
+
+		decodePanel.add(viewButton);
+		
+
+		
+		JPanel encodePanel = new JPanel(new GridLayout(5,1));
+		mainPanel.add(encodePanel);
 		
 		
 		sourceButton = new JButton("Choose source image");
@@ -63,11 +78,11 @@ public class Menu{
 		sourceLocation = new JLabel("No file loaded.");
 		destLocation = new JLabel("No destination set.");
 
-		contentPanel.add(sourceButton);
-		contentPanel.add(sourceLocation);
-		contentPanel.add(destButton);
-		contentPanel.add(destLocation);
-		contentPanel.add(encodeButton);
+		encodePanel.add(sourceButton);
+		encodePanel.add(sourceLocation);
+		encodePanel.add(destButton);
+		encodePanel.add(destLocation);
+		encodePanel.add(encodeButton);
 		        
 		fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		        
@@ -124,6 +139,26 @@ public class Menu{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void viewImage() {
+		
+		
+		fileChooser.setSelectedFile(null);
+		fileChooser.setFileFilter(null);
+		
+		int returnValue = fileChooser.showOpenDialog(null);
+
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			try {
+				Loader.Load(fileChooser.getSelectedFile().getAbsolutePath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		
 	}
 
 	

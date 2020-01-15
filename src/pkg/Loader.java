@@ -15,27 +15,27 @@ public class Loader extends Canvas{
 	static int width;
 	static int height;
 	static int[]converted_contents;
-	static byte[] fileContents;
+	static byte[] data;
 	
 	static Pixel[] sample = new Pixel[7];
 	static Coordinate[] sample_sorted_red = new Coordinate[7];
 	static Coordinate[] sample_sorted_green = new Coordinate[7];
 	static Coordinate[] sample_sorted_blue = new Coordinate[7];
-
-	static Random rand = new Random();
 	
 	public static void main(String[] args) throws IOException {
 		
 		
-		Path path = Paths.get("output.dan");
-		fileContents =  Files.readAllBytes(path);
-		processData(fileContents);
+		Load("output.dan");
 		
 	}
 	
-	public static void processData(byte[] data) {
+	
+	
+	public static void Load(String destPath) throws IOException {
 		
-		fileContents = data;
+		Path path = Paths.get(destPath);
+
+		data = Files.readAllBytes(path);
 		
 		
 		byte[] split_bytes = new byte[4];
@@ -85,7 +85,7 @@ public class Loader extends Canvas{
     			//int new_index = converted_contents[w+(h*width)];
     			
     			// NonChunkCode
-    			int new_index = fileContents[header_size+w+(h*width)];
+    			int new_index = data[header_size+w+(h*width)];
     			
     			if(new_index==7)
     				new_index=6;
