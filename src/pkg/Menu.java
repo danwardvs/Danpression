@@ -131,7 +131,12 @@ public class Menu{
 
 			
 		}else {
-			Saver.Write(sourcePath,destPath);
+			try {
+				Saver.Write(sourcePath,destPath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
