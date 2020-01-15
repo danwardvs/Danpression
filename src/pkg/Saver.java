@@ -10,14 +10,14 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 
 public class Saver {
-	public static void main(String[] args) throws IOException {
+	public static void Write(String path) throws IOException {
 		
 		final int SAMPLE_SIZE = 7;
 		
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File("face.bmp"));
+            img = ImageIO.read(new File(path));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
