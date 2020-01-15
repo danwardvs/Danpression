@@ -10,14 +10,14 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 
 public class Saver {
-	public static void Write(String path) throws IOException {
+	public static void Write(String sourcePath, String destPath) throws IOException {
 		
 		final int SAMPLE_SIZE = 7;
 		
 		BufferedImage img = null;
         
 		try {
-            img = ImageIO.read(new File(path));
+            img = ImageIO.read(new File(sourcePath));
         } catch (IOException e) {
         	System.out.println(e.toString());
         }
@@ -62,7 +62,7 @@ public class Saver {
 		
 
 		
-		FileOutputStream red_data = new FileOutputStream("output.dan");
+		FileOutputStream red_data = new FileOutputStream(destPath);
         BufferedOutputStream out = new BufferedOutputStream(red_data);
 		
         out.write(Header.convertHeader(width,height,samples));

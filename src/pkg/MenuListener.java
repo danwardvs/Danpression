@@ -31,8 +31,14 @@ public class MenuListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		if(componentID.equals("sourceButton")) {
+			menuReference.loadSource();
+		}
+		if(componentID.equals("destButton")) {
+			menuReference.loadDest();
+		}
 		if(componentID.equals("encodeButton")) {
-			menuReference.loadFile();
+			menuReference.encodeFile();
 		}
 	
 	

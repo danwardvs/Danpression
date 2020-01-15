@@ -10,17 +10,25 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 
 
 public class Menu{
 	
+	JButton sourceButton;
+	JButton destButton;
 	JButton encodeButton;
 	JFileChooser fileChooser;
-	JLabel loadedFileLocation;
-	String filePath = "";
+	JLabel sourceLocation;
+	JLabel destLocation;
+
+	String sourcePath = "";
+	String destPath = "";
+
 	
 	public static void main(String[] args) {
 		
@@ -39,16 +47,27 @@ public class Menu{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
 		frame.setVisible(true);
-		JPanel contentPanel = new JPanel(new GridLayout(4,1));
+		JPanel contentPanel = new JPanel(new GridLayout(5,1));
 		frame.add(contentPanel);
 		
 		
-		encodeButton = new JButton("Load source image");
+		sourceButton = new JButton("Choose source image");
+		sourceButton.addActionListener(new MenuListener("sourceButton"));
+		
+		destButton = new JButton("Choose destination");
+		destButton.addActionListener(new MenuListener("destButton"));
+		
+		encodeButton = new JButton("Encode file");
 		encodeButton.addActionListener(new MenuListener("encodeButton"));
 		
-		loadedFileLocation = new JLabel("No file loaded.");
+		sourceLocation = new JLabel("No file loaded.");
+		destLocation = new JLabel("No destination set.");
+
+		contentPanel.add(sourceButton);
+		contentPanel.add(sourceLocation);
+		contentPanel.add(destButton);
+		contentPanel.add(destLocation);
 		contentPanel.add(encodeButton);
-		contentPanel.add(loadedFileLocation);
 		        
 		fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		        
@@ -58,24 +77,54 @@ public class Menu{
 		
 	}
 	
-	public void loadFile() {
+	public void loadSource() {
+		fileChooser.setSelectedFile(null);
+		fileChooser.setFileFilter(null);
+
 		int returnValue = fileChooser.showOpenDialog(null);
-		// int returnValue = jfc.showSaveDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			filePath = fileChooser.getSelectedFile().getAbsolutePath();
-			loadedFileLocation.setText(filePath);
+			sourcePath = fileChooser.getSelectedFile().getAbsolutePath();
+			sourceLocation.setText(sourcePath);
+		}
+	}
+	
+	public void loadDest() {
+		String newSelectedFile = "";
+		if(!sourcePath.equals("")) {
+			String[] newPath = sourcePath.split("\\.");
+			newSelectedFile = newPath[0];
+			newSelectedFile += ".dan";
+			
+		}
+		
+		
+		fileChooser.setSelectedFile(new File(newSelectedFile));
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Danpression image","dan"));
+		
+		int returnValue = fileChooser.showSaveDialog(null);
+
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			destPath = fileChooser.getSelectedFile().getAbsolutePath();
+			destLocation.setText(destPath);
+		}
+	}
+	public void encodeFile() {
+		if(sourcePath.equals("")) {
+			JOptionPane.showMessageDialog(null,"Source image needed for encoding.");
+		}else if(destPath.equals("")){
+			JOptionPane.showMessageDialog(null,"Destination file needed for encoding.");
+
+			
+		}else {
+			try {
+				Saver.Write(sourcePath,destPath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	
 }
-
-//File selectedFile = jfc.getSelectedFile();
-//System.out.println(selectedFile.getAbsolutePath());
-//try {
-//	Saver.Write(selectedFile.getAbsolutePath());
-//} catch (IOException e1) {
-//	// TODO Auto-generated catch block
-//	e1.printStackTrace();
-//}
