@@ -3,7 +3,6 @@ package pkg;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Arrays;
 
 import net.sf.sevenzipjbinding.ExtractOperationResult;
 import net.sf.sevenzipjbinding.IInArchive;
@@ -17,10 +16,6 @@ import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 
 
 public class ExtractArchive {
-    
-	public static void main(String[] args) {
-		ExtractArchive.Extract("tiger.7z");
-	}
 	
 	public static byte[] Extract(String path) {
 		
@@ -28,6 +23,7 @@ public class ExtractArchive {
 		
         RandomAccessFile randomAccessFile = null;
         IInArchive inArchive = null;
+        
         try {
             randomAccessFile = new RandomAccessFile(path, "r");
             inArchive = SevenZip.openInArchive(null, // autodetect archive type
@@ -36,11 +32,9 @@ public class ExtractArchive {
             // Getting simple interface of the archive inArchive
             ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
 
-            System.out.println("   Hash   |    Size    | Filename");
-            System.out.println("----------+------------+---------");
 
             for (ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
-                final int[] hash = new int[] { 0 };
+            	
                 if (!item.isFolder()) {
                     ExtractOperationResult result;
 
@@ -52,8 +46,6 @@ public class ExtractArchive {
                     	
                         public int write(byte[] data) throws SevenZipException {
                         	
-                        	
-                            hash[0] ^= Arrays.hashCode(data); // Consume data
                             sizeArray[0] += data.length;
                             
                             try {
@@ -69,14 +61,9 @@ public class ExtractArchive {
                     });
                     
                     data = outputStream.toByteArray();
-                    
-                    if (result == ExtractOperationResult.OK) {
-                        System.out.println(String.format("%9X | %10s | %s", 
-                                hash[0], sizeArray[0], item.getPath()));
-                     
                         
                        
-                    } else {
+                    if(result != ExtractOperationResult.OK) {
                         System.err.println("Error extracting item: " + result);
                     }
                 }
@@ -99,6 +86,8 @@ public class ExtractArchive {
                 }
             }
         }
+        
+        
     return data;
 	}
 }
