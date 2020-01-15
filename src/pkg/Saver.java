@@ -7,10 +7,25 @@ import javax.imageio.ImageIO;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
 public class Saver {
-	public static void Write(String sourcePath, String destPath) throws IOException {
+	
+	public static void Write(String sourcePath, String destPath) {
+		try {
+			CompressArchive.compress(destPath,Saver.processData(sourcePath));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	public static byte[] processData(String sourcePath) throws IOException {
+		
 		
 		final int SAMPLE_SIZE = 7;
 		
@@ -62,8 +77,7 @@ public class Saver {
 		
 
 		
-		FileOutputStream red_data = new FileOutputStream(destPath);
-        BufferedOutputStream out = new BufferedOutputStream(red_data);
+        ByteArrayOutputStream out = new ByteArrayOutputStream( );
 		
         out.write(Header.convertHeader(width,height,samples));
         
@@ -129,12 +143,9 @@ public class Saver {
 		
 		
 		
-		out.flush();
-        red_data.close();
+		return out.toByteArray();
         
-        
-        System.out.println("done");
-        
+                
        
         
 	}

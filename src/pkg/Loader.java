@@ -68,9 +68,13 @@ public class Loader extends Canvas{
 	
 	public static void Load(String destPath) throws IOException {
 		
-		Path path = Paths.get(destPath);
-
-		processData(Files.readAllBytes(path));
+		
+		// Uncompressed data loading
+		//Path path = Paths.get(destPath);
+		//processData(Files.readAllBytes(path));
+		
+		// Compressed data loading
+		processData(ExtractArchive.Extract(destPath));
 		
 	}
 	

@@ -109,7 +109,6 @@ public class Menu{
 		if(!sourcePath.equals("")) {
 			String[] newPath = sourcePath.split("\\.");
 			newSelectedFile = newPath[0];
-			newSelectedFile += ".dan";
 			
 		}
 		
@@ -132,12 +131,7 @@ public class Menu{
 
 			
 		}else {
-			try {
-				Saver.Write(sourcePath,destPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Saver.Write(sourcePath,destPath);
 		}
 	}
 	

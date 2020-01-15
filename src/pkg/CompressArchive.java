@@ -18,7 +18,7 @@ public class CompressArchive {
     /**
      * The callback provides information about archive items.
      */
-    private final class MyCreateCallback 
+    private final static class MyCreateCallback 
             implements IOutCreateCallback<IOutItem7z> {
 
         public void setOperationResult(boolean operationResultOk)
@@ -62,12 +62,11 @@ public class CompressArchive {
     private static Item[] items = new Item[1];
 
     public static void main(String[] args) {
-    	CompressArchive test = new CompressArchive();
-        test.compress("test6","message he;re pls".getBytes());
+        CompressArchive.compress("test6","message he;re pls".getBytes());
     }
 
 
-    private void compress(String filename, byte[] data) {
+    public static void compress(String filename, byte[] data) {
         items[0] = new Item(filename+".dnu",data);
 
 
