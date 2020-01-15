@@ -25,7 +25,7 @@ public class Loader extends Canvas{
 	public static void main(String[] args) throws IOException {
 		
 		
-		Load("output.dan");
+		LoadArchive("tiger.7z");
 		
 	}
 	
@@ -73,14 +73,15 @@ public class Loader extends Canvas{
 		processData(Files.readAllBytes(path));
 		
 	}
-
-	public static byte[] LoadBytes(String destPath) throws IOException {
+	
+	public static void LoadArchive(String destPath) throws IOException {
 		
-		Path path = Paths.get(destPath);
+		
 
-		return Files.readAllBytes(path);
+		processData(ExtractArchive.Extract(destPath));
 		
 	}
+
     public void paint(Graphics g) {
     	
     	

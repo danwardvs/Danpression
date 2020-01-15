@@ -22,8 +22,10 @@ public class ExtractArchive {
 		ExtractArchive.Extract("tiger.7z");
 	}
 	
-	public static void Extract(String path) {
-  
+	public static byte[] Extract(String path) {
+		
+		byte[] data = new byte[0];
+		
         RandomAccessFile randomAccessFile = null;
         IInArchive inArchive = null;
         try {
@@ -66,11 +68,10 @@ public class ExtractArchive {
                             
                             return data.length; // Return amount of consumed data
                         }
-                       
-                       
                         
                     });
-                    Loader.processData(outputStream.toByteArray());
+                    
+                    data = outputStream.toByteArray();
                     
                     if (result == ExtractOperationResult.OK) {
                         System.out.println(String.format("%9X | %10s | %s", 
@@ -101,5 +102,6 @@ public class ExtractArchive {
                 }
             }
         }
-    }
+    return data;
+	}
 }
