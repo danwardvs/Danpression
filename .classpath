@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-8-openjdk-amd64"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/sevenzipjbinding-AllLinux.jar"/>
 	<classpathentry kind="lib" path="lib/sevenzipjbinding.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="lib/sevenzipjbinding-AllPlatforms.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
