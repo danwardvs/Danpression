@@ -59,19 +59,16 @@ public class CompressArchive {
         }
     }
 
-    private Item[] items = new Item[1];
+    private static Item[] items = new Item[1];
 
     public static void main(String[] args) {
-        if (args.length == 1) {
-            new CompressArchive().compress(args[0]);
-            return;
-        }
-        System.out.println("Usage: java CompressNonGeneric7z <archive>");
+    	CompressArchive test = new CompressArchive();
+        test.compress("test6","message he;re pls".getBytes());
     }
 
 
-    private void compress(String filename) {
-        items[0] = new Item("test.dnu","ncie datea");
+    private void compress(String filename, byte[] data) {
+        items[0] = new Item(filename+".dnu",data);
 
 
         boolean success = false;
@@ -79,7 +76,7 @@ public class CompressArchive {
         IOutCreateArchive7z outArchive = null;
         try {
         	
-            raf = new RandomAccessFile(filename, "rw");
+            raf = new RandomAccessFile(filename+".dan", "rw");
 
             // Open out-archive object
             outArchive = SevenZip.openOutArchive7z();
