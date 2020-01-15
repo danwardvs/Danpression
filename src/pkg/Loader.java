@@ -29,14 +29,9 @@ public class Loader extends Canvas{
 		
 	}
 	
-	
-	
-	public static void Load(String destPath) throws IOException {
+	public static void processData(byte[] data) {
 		
-		Path path = Paths.get(destPath);
-
-		data = Files.readAllBytes(path);
-		
+		Loader.data = data;
 		
 		byte[] split_bytes = new byte[4];
 		
@@ -69,9 +64,23 @@ public class Loader extends Canvas{
         f.setSize(width,height);  
         //f.setLayout(null);  
         f.setVisible(true);  
-		
 	}
 	
+	public static void Load(String destPath) throws IOException {
+		
+		Path path = Paths.get(destPath);
+
+		processData(Files.readAllBytes(path));
+		
+	}
+
+	public static byte[] LoadBytes(String destPath) throws IOException {
+		
+		Path path = Paths.get(destPath);
+
+		return Files.readAllBytes(path);
+		
+	}
     public void paint(Graphics g) {
     	
     	
