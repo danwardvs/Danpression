@@ -48,10 +48,7 @@ public class ExtractArchive {
                     
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
                     
-                    
                     result = item.extractSlow(new ISequentialOutStream() {
-                    	
-                    	
                     	
                         public int write(byte[] data) throws SevenZipException {
                         	

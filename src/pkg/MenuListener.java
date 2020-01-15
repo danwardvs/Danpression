@@ -43,15 +43,5 @@ public class MenuListener implements ActionListener{
 		if(componentID.equals("viewButton")) {
 			menuReference.viewImage();
 		}
-	
-	
-	
-	
-	
-	
-		
-	
-		
 	}
-
 }

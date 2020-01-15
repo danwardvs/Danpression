@@ -7,15 +7,6 @@ import java.util.Random;
 public class CompressArchiveStructure {
     public static Item[] create() {
 
-        //     <root>
-        //     |
-        //     +- info.txt
-        //     +- random-100-bytes.dump
-        //     +- dir1
-        //     |  +- file-in-a-directory1.txt
-        //     +- dir2
-        //        +- file-in-a-directory2.txt
-
         Item[] items = new Item[5];
 
         items[0] = new Item("info.txt", "This is the info");
