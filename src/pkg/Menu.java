@@ -30,9 +30,23 @@ public class Menu{
 
 	
 	public static void main(String[] args) {
-		
-		Menu mainMenu = new Menu();
-		MenuListener.setMenuReference(mainMenu);
+				
+		if(args.length == 0) {
+			Menu mainMenu = new Menu();
+			MenuListener.setMenuReference(mainMenu);
+		}else if(args.length == 2) {
+			if(args[0].contentEquals("view")) {
+				try {
+					Loader.Load(args[1]);
+					System.out.println("Viewing image at path" + args[1]);
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Failed to view image at path " + args[1]);
+				}
+			}
+			
+		}
 
         
    

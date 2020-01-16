@@ -41,9 +41,11 @@ public class Loader extends Canvas{
 		}
 
 		Loader m=new Loader();  
-        JFrame f=new JFrame();  
-        f.add(m);  
+        JFrame f=new JFrame("Danpression Image Viewer");  
+        f.add(m);
         f.setSize(width,height);  
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         //f.setLayout(null);  
         f.setVisible(true);  
 	}
