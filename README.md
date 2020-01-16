@@ -45,4 +45,4 @@ Can be found in /libs directory of [archives found here.](https://sourceforge.ne
 * Swing GUI
 
 ### Usage: 
-* Run Danpression.jar with an up-to-date JRE installation. `java -jar Danpression.jar` Builds can be found on the release tab
+* Run Danpression.jar with an up-to-date JRE installation. `java -jar Danpression.jar`To quickly view an image, launch with `view /path/to/image.dan` arguments. Builds can be found on the release tab
