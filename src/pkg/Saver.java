@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 
 public class Saver {
 	
-	public static void Write(String sourcePath, String destPath) throws IOException {
+	public static void Write(String sourcePath, String destPath) throws Exception {
 		CompressArchive.compress(destPath,Saver.processData(sourcePath));
 
 	}
@@ -45,17 +45,23 @@ public class Saver {
 		return header_data;
 	}
 	
-	public static byte[] processData(String sourcePath) throws IOException {
+	public static byte[] processData(String sourcePath) throws Exception {
 		
 		final int SAMPLE_SIZE = 7;
 		
 		BufferedImage img = null;
         
         img = ImageIO.read(new File(sourcePath));
-  
-		int height = img.getHeight();
-        int width = img.getWidth();
-		
+        
+        int width, height;
+        
+        if(img != null) {
+        	height = img.getHeight();
+        	width = img.getWidth();
+        }else {
+        	throw new Exception("Invalid image file");
+        }
+        
 		Coordinate[] sample_locs = new Coordinate[SAMPLE_SIZE];
 		
 		int width_3 = width/3;

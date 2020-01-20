@@ -24,13 +24,14 @@ public class Menu{
 	JFileChooser fileChooser;
 	JLabel sourceLocation;
 	JLabel destLocation;
+	JLabel errorMsg;
 
 	String sourcePath = "";
 	String destPath = "";
 
 	
 	public static void main(String[] args) {
-				
+		
 		if(args.length == 0) {
 			Menu mainMenu = new Menu();
 			MenuListener.setMenuReference(mainMenu);
@@ -42,39 +43,38 @@ public class Menu{
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+
 					System.out.println("Failed to view image at path " + args[1]);
 				}
-			}
-			
+			}	
 		}
-
-        
-   
-   
 	}
+	private void showMessage(String newError) {
+		errorMsg.setText(newError);
+	}
+	
 	public Menu() {
 		// TODO Auto-generated method stub
 		
 				
 		JFrame frame = new JFrame("Danpression");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700,400);
-		frame.setVisible(true);
+		
 		JPanel mainPanel = new JPanel(new GridLayout(1,2));
 		
 		frame.add(mainPanel);
 		
-		JPanel decodePanel = new JPanel(new GridLayout(5,1));
+		JPanel decodePanel = new JPanel(new GridLayout(6,1));
 		mainPanel.add(decodePanel);
 		
 		viewButton = new JButton("View .dan image");
 		viewButton.addActionListener(new MenuListener("viewButton"));
 
-		decodePanel.add(viewButton);
 		
+		decodePanel.add(viewButton);
+
 
 		
-		JPanel encodePanel = new JPanel(new GridLayout(5,1));
+		JPanel encodePanel = new JPanel(new GridLayout(6,1));
 		mainPanel.add(encodePanel);
 		
 		
@@ -89,15 +89,21 @@ public class Menu{
 		
 		sourceLocation = new JLabel("No file loaded.");
 		destLocation = new JLabel("No destination set.");
+		errorMsg = new JLabel("");
+
 
 		encodePanel.add(sourceButton);
 		encodePanel.add(sourceLocation);
 		encodePanel.add(destButton);
 		encodePanel.add(destLocation);
 		encodePanel.add(encodeButton);
+		encodePanel.add(errorMsg);
 		        
 		fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		        
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(700,400);
+		frame.setVisible(true);
 		
 	}
 	
@@ -142,9 +148,12 @@ public class Menu{
 		}else {
 			try {
 				Saver.Write(sourcePath,destPath);
-			} catch (IOException e) {
+				showMessage("Successfully encoded file");
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				showMessage(e.getMessage());
+
 			}
 		}
 	}
@@ -163,6 +172,7 @@ public class Menu{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				showMessage(e.getMessage());
 			}
 		}
 
